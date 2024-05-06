@@ -1,15 +1,15 @@
 .course-card {
   margin: 20px 10px;
-  max-width: 474px;
+  max-width: 380px;
 }
 
 .course-actions {
   display: flex;
   justify-content: center;
-}
 
-.course-actions button {
-  margin-right: 5px;
+  button {
+    margin-right: 5px;
+  }
 }
 
 .course-thumbnail {
@@ -24,4 +24,19 @@
 
 mat-card-content p {
   padding: 10px;
+}
+
+.handset-portrait {
+  .course-card {
+    width: 100%;
+    margin: 0;
+    padding: 16px 0;
+  }
+  .course-thumbnail {
+    width: 100%;
+    margin: 0;
+  }
+  .long-description {
+    padding: 10px 10px 0 10px;
+  }
 }
