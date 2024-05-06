@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { filter } from "rxjs/operators";
 import { Course } from "../model/course";
+import { openEditCourseDialog } from "../course-dialog/course-dialog.component";
 
 @Component({
   selector: "courses-card-list",
@@ -7,11 +10,17 @@ import { Course } from "../model/course";
   styleUrls: ["./courses-card-list.component.css"],
 })
 export class CoursesCardListComponent implements OnInit {
-  @Input()
-  courses: Course[];
+  @Input() courses: Course[];
+  cols = 1;
+  rowHeight = "500px";
+  handsetPortrait = false;
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
   ngOnInit() {}
 
-  editCourse(course: Course) {}
+  editCourse(course: Course) {
+    openEditCourseDialog(this.dialog, course)
+      .pipe(filter((val) => !!val))
+      .subscribe((val) => console.log("new course value:", val));
+  }
 }
