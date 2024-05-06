@@ -4,27 +4,22 @@ import { Observable } from "rxjs";
 import { Course } from "../model/course";
 import { map } from "rxjs/operators";
 import { Lesson } from "../model/lesson";
-import { environment } from "../../environments/environment";
 
 @Injectable()
 export class CoursesService {
   constructor(private http: HttpClient) {}
 
   findCourseById(courseId: number): Observable<Course> {
-    return this.http.get<Course>(
-      `${environment.FIREBASE_API}Courses/${courseId}.json`
-    );
+    return this.http.get<Course>(`/api/courses/${courseId}`);
   }
 
   findAllCourses(): Observable<Course[]> {
-    return this.http
-      .get(`${environment.FIREBASE_API}Courses.json`)
-      .pipe(map((res) => res["payload"]));
+    return this.http.get("/api/courses").pipe(map((res) => res["payload"]));
   }
 
   findAllCourseLessons(courseId: number): Observable<Lesson[]> {
     return this.http
-      .get(`${environment.FIREBASE_API}Lessons.json`, {
+      .get("/api/lessons", {
         params: new HttpParams()
           .set("courseId", courseId.toString())
           .set("pageNumber", "0")
@@ -41,7 +36,7 @@ export class CoursesService {
     sortColumn = "seqNo"
   ): Observable<Lesson[]> {
     return this.http
-      .get(`${environment.FIREBASE_API}Lessons.json`, {
+      .get("/api/lessons", {
         params: new HttpParams()
           .set("courseId", courseId.toString())
           .set("sortOrder", sortOrder)
