@@ -15,6 +15,10 @@
   margin: 10px auto;
 }
 
+.collapsed-detail {
+  display: none;
+}
+
 .duration-cell {
   text-align: center;
 }
@@ -29,6 +33,7 @@
   height: 360px;
   width: 390px;
   position: fixed;
+  z-index: 150;
 }
 
 .lessons-table {
