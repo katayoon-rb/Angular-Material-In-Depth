@@ -1,4 +1,10 @@
 import { Component } from "@angular/core";
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from "@angular/cdk/drag-drop";
+import { Lesson } from "../model/lesson";
 
 @Component({
   selector: "drag-drop-example",
@@ -13,6 +19,7 @@ export class DragDropComponent {
       duration: "4:17",
       seqNo: 1,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 121,
@@ -20,6 +27,7 @@ export class DragDropComponent {
       duration: "6:37",
       seqNo: 2,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 122,
@@ -27,6 +35,7 @@ export class DragDropComponent {
       duration: "8:03",
       seqNo: 3,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 123,
@@ -34,6 +43,7 @@ export class DragDropComponent {
       duration: "11:46",
       seqNo: 4,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 124,
@@ -41,6 +51,7 @@ export class DragDropComponent {
       duration: "7:17",
       seqNo: 5,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 125,
@@ -48,6 +59,7 @@ export class DragDropComponent {
       duration: "8:16",
       seqNo: 6,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 126,
@@ -55,6 +67,7 @@ export class DragDropComponent {
       duration: "7:28",
       seqNo: 7,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 127,
@@ -62,6 +75,7 @@ export class DragDropComponent {
       duration: "11:09",
       seqNo: 8,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 128,
@@ -69,6 +83,7 @@ export class DragDropComponent {
       duration: "3:44",
       seqNo: 9,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 129,
@@ -76,6 +91,7 @@ export class DragDropComponent {
       duration: "8:55",
       seqNo: 10,
       courseId: 11,
+      longDescription: "",
     },
     {
       id: 130,
@@ -83,6 +99,21 @@ export class DragDropComponent {
       duration: "12:37",
       seqNo: 11,
       courseId: 11,
+      longDescription: "",
     },
   ];
+  done = [];
+
+  dropMultiList(event: CdkDragDrop<Lesson[]>) {
+    if (event.previousContainer == event.container) {
+      moveItemInArray(this.lessons, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
 }
