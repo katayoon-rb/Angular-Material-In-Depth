@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
         courses.filter((course) => course.category === "BEGINNER")
       )
     );
+
     this.advancedCourses$ = courses$.pipe(
       map((courses) =>
         courses.filter((course) => course.category === "ADVANCED")

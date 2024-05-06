@@ -10,21 +10,30 @@ export class CoursesService {
   constructor(private http: HttpClient) {}
 
   findCourseById(courseId: number): Observable<Course> {
-    return this.http.get<Course>(`/api/courses/${courseId}`);
+    return this.http.get<Course>(
+      `https://angular-material-project-299a9-default-rtdb.firebaseio.com/Courses/${courseId}`
+    );
   }
 
   findAllCourses(): Observable<Course[]> {
-    return this.http.get("/api/courses").pipe(map((res) => res["payload"]));
+    return this.http
+      .get(
+        "https://angular-material-project-299a9-default-rtdb.firebaseio.com/Courses"
+      )
+      .pipe(map((res) => res["payload"]));
   }
 
   findAllCourseLessons(courseId: number): Observable<Lesson[]> {
     return this.http
-      .get("/api/lessons", {
-        params: new HttpParams()
-          .set("courseId", courseId.toString())
-          .set("pageNumber", "0")
-          .set("pageSize", "1000"),
-      })
+      .get(
+        "https://angular-material-project-299a9-default-rtdb.firebaseio.com/Lessons",
+        {
+          params: new HttpParams()
+            .set("courseId", courseId.toString())
+            .set("pageNumber", "0")
+            .set("pageSize", "1000"),
+        }
+      )
       .pipe(map((res) => res["payload"]));
   }
 
@@ -36,14 +45,17 @@ export class CoursesService {
     sortColumn = "seqNo"
   ): Observable<Lesson[]> {
     return this.http
-      .get("/api/lessons", {
-        params: new HttpParams()
-          .set("courseId", courseId.toString())
-          .set("sortOrder", sortOrder)
-          .set("pageNumber", pageNumber.toString())
-          .set("pageSize", pageSize.toString())
-          .set("sortColumn", sortColumn),
-      })
+      .get(
+        "https://angular-material-project-299a9-default-rtdb.firebaseio.com/Lessons",
+        {
+          params: new HttpParams()
+            .set("courseId", courseId.toString())
+            .set("sortOrder", sortOrder)
+            .set("pageNumber", pageNumber.toString())
+            .set("pageSize", pageSize.toString())
+            .set("sortColumn", sortColumn),
+        }
+      )
       .pipe(map((res) => res["payload"]));
   }
 }
