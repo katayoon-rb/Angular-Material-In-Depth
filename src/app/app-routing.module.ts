@@ -21,9 +21,7 @@ const routes: Routes = [
   {
     path: "courses/:id",
     component: CourseComponent,
-    resolve: {
-      course: courseResolver,
-    },
+    resolve: { course: courseResolver },
   },
   {
     path: "add-new-course",
