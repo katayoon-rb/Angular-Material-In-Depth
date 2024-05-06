@@ -1,13 +1,16 @@
-
->>> body {
-    margin: 0;
+body {
+  margin: 0;
 }
 
 main {
-    margin: 30px;
+  margin: 30px;
 }
 
 mat-toolbar a {
   color: white;
 }
 
+mat-nav-list mat-icon {
+  margin-bottom: -5px;
+  margin-right: 10px;
+}
