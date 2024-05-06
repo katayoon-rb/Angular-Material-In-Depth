@@ -12,19 +12,19 @@ export class CoursesService {
 
   findCourseById(courseId: number): Observable<Course> {
     return this.http.get<Course>(
-      `${environment.FIREBASE_API}Courses/${courseId}`
+      `${environment.FIREBASE_API}Courses/${courseId}.json`
     );
   }
 
   findAllCourses(): Observable<Course[]> {
     return this.http
-      .get(`${environment.FIREBASE_API}Courses`)
+      .get(`${environment.FIREBASE_API}Courses.json`)
       .pipe(map((res) => res["payload"]));
   }
 
   findAllCourseLessons(courseId: number): Observable<Lesson[]> {
     return this.http
-      .get(`${environment.FIREBASE_API}Lessons`, {
+      .get(`${environment.FIREBASE_API}Lessons.json`, {
         params: new HttpParams()
           .set("courseId", courseId.toString())
           .set("pageNumber", "0")
@@ -41,7 +41,7 @@ export class CoursesService {
     sortColumn = "seqNo"
   ): Observable<Lesson[]> {
     return this.http
-      .get(`${environment.FIREBASE_API}Lessons`, {
+      .get(`${environment.FIREBASE_API}Lessons.json`, {
         params: new HttpParams()
           .set("courseId", courseId.toString())
           .set("sortOrder", sortOrder)
