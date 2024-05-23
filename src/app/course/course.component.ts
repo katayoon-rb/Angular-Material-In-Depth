@@ -2,12 +2,12 @@ import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { Course } from "../model/course";
-import { CoursesService } from "../services/courses.service";
-import { tap, catchError, finalize } from "rxjs/operators";
-import { merge, throwError } from "rxjs";
-import { Lesson } from "../model/lesson";
 import { SelectionModel } from "@angular/cdk/collections";
+import { merge, throwError } from "rxjs";
+import { tap, catchError, finalize } from "rxjs/operators";
+import { Course } from "../model/course";
+import { Lesson } from "../model/lesson";
+import { LESSONS } from "../services/db-data";
 
 @Component({
   selector: "course",
@@ -24,39 +24,25 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
   selection = new SelectionModel<Lesson>(true, []);
 
-  constructor(
-    private route: ActivatedRoute,
-    private coursesService: CoursesService
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   displayedColumns = ["select", "seqNo", "description", "duration"];
   expandedLesson: Lesson = null;
 
   ngOnInit() {
-    this.course = this.route.snapshot.data["course"];
+    this.loading = true;
     this.loadLessonsPage();
   }
 
   loadLessonsPage() {
-    this.loading = true;
-    this.coursesService
-      .findLessons(
-        this.course.id,
-        this.sort?.direction ?? "asc",
-        this.paginator?.pageIndex ?? 0,
-        this.paginator?.pageSize ?? 3,
-        this.sort?.active ?? "seqNo"
-      )
-      .pipe(
-        tap((lessons) => (this.lessons = lessons)),
-        catchError((err) => {
-          console.log("Error loading lessons", err);
-          alert("Error loading lessons.");
-          return throwError(err);
-        }),
-        finalize(() => (this.loading = false))
-      )
-      .subscribe();
+    LESSONS.map((les) => {
+      if (les.courseId === parseInt(this.route.snapshot.params.id)) {
+        this.lessons.push(les);
+      }
+    });
+    setTimeout(() => {
+      this.loading = false;
+    }, 1500);
   }
 
   ngAfterViewInit() {

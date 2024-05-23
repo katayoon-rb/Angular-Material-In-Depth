@@ -1,13 +1,16 @@
-import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Course } from "../model/course";
-import { Observable } from "rxjs";
-import { CoursesService } from "./courses.service";
+import { COURSES } from "./db-data";
 
 export function courseResolver(
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
-): Observable<Course> {
-  const coursesService = inject(CoursesService);
-  return coursesService.findCourseById(route.params["id"]);
+): Course {
+  let wantedCourse: Course;
+  COURSES.map((course) => {
+    if (course.id === parseInt(route.params["id"])) {
+      wantedCourse = course;
+    }
+  });
+  return wantedCourse;
 }

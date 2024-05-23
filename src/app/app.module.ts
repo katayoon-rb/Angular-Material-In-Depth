@@ -24,7 +24,6 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { CoursesService } from "./services/courses.service";
 import { HttpClientModule } from "@angular/common/http";
 import { CourseDialogComponent } from "./course-dialog/course-dialog.component";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -94,7 +93,6 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
     MatTreeModule,
     ScrollingModule,
   ],
-  providers: [CoursesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
